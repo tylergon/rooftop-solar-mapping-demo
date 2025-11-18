@@ -1,4 +1,4 @@
-# Mapping the rooftop solar potential of UBC
+# Exercise • Mapping Rooftop Solar Radiation
 
 ## Preamble
 
