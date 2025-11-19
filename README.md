@@ -109,16 +109,27 @@ In your result, you'll notice not as many pixels are filtered out from this step
 
 ![Final filtered results](Assets/solar_radiation_final.png)
 
-### 4. Calculating zonal statistics
+### 4. Rooftop statistics
 
-Here are the steps you got to follow:
+Time to tie it all together. At the end of the day, we're mostly interested in seeing how much space and potential rooftops have, not pixels. To do this, we'll be calculating zonal statistics using the building footprints. Pull up the *Zonal Statistics as Table (Image Analysis)* tool. For the configuration, set your input feature zone data as the building footprints and the input value as your final solar radiation raster. Ensure you use the building footprints FID as the *Zone Field* and are calculating the mean.
 
-Mask with buildings and use our filtered power potential
-Join it back into the building footprints
+![Zonal statistics configuration](Assets/zonal_statistics_config.png)
 
-### 5. Output our final selection of rooftops
+We're going to join the resulting table back into the original `building_polygons.shp` feature table. To do this, use the *Join Field (Data Management)* tool. You'll want to transfer the `AREA` and `MEAN` fields from the zonal statistics table over to the building footprints feature table using the `OBJECTID` field:
 
-7. Make a selection to select all the buildings w/ a certain total area of usable rooftop
+![Join field configuration](Assets/join_field_configuration.png)
+
+Looking at the attribute table of the `building_polygons` table, you can see we've copied over the two fields.
+
+![Join field result](Assets/join_field_result.png)
+
+Now that we've got everything we want, its time to export our result. To do this, we're going to use the *Select by Attributes (Selection)* tool. As listed in our earlier minimum requirements for solar panel, generally you want a rooftop panel with >10m^2 area to install solar panels. To approximate this requirement, we're going to require a minimum of 30m^2 of area for our rooftops.
+
+![Final selection configuration](Assets/final_selection.png)
+
+Now you can just export this selection to a new dataset and you're done!
 
 ## Acknowledgements
 
+- This demonstration was adapted from [ESRI's solar power estimation tutorial](https://learn.arcgis.com/en/projects/estimate-solar-power-potential/).
+- The data for this demonstration was accessed from the [Vancouver open data portal](https://opendata.vancouver.ca/pages/home/).
