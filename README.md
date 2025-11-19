@@ -27,13 +27,30 @@ The data for this lab has been acquired from the [City of Vancouver's open data 
 
 ### 1. Setting up your environment
 
-Load data into Arc. Create a hillshade?
+Open up ArcGIS to a new project and add a new map. Drag in the `building-footprints.shp` and `elevation-cov-fairview.tif` files. These should be found in the `Data.zip` folder, saved within this repository.
+
+Let's get a better idea of whats going on in our research area. Input the Fairview DEM into the hillshape spatial analysis tool and check out the output.
+
+> INSERT IMAGE: HILLSHADE GENERATION
+
+It might not be the highest spatial resolution DEM around, but it looks like we can make out rooftops!
+
+> INSERT IMAGE: HILLSHADE
 
 ### 2. Calculating solar radiation
 
-How to do it
+Next up, we'll be calculating the annual solar radiation received across our rooftops. To do this, we'll be using the *Raster Solar Radiation (Spatial Analyst)* tool. In the configuration, set the input raster as the DEM and the mask as our building footprints. We're looking for annual solar radiation, so set the dates to the start and end of 2025 (or 2026 if you're feeling crazy). If you want to be really accurate, switch out the Time Zone to UTC-8, but this doesn't matter too much.
 
-A brief comment: what is solar radiation? Irradiance? Why so many words!
+Remember to use meaningful names, at the end of this you're going to have a ton of layers that each slightly differ. Making sense of this down the road is way more painful than being proactive.
+
+> INSERT IMAGE: RADIATION CONFIGURATION
+
+It will take a couple moments, but once the operation is complete, you should see a new layer where each pixel represents the annual radiation, colour coded from blue (low) to red (high).
+
+> INSERT IMAGE: RADIATION
+
+> [!NOTE]
+> Solar irradiance is the instantaneous measurement of energy on a surface. There are a few ways to measure it, such as direct, diffuse, or total. With the raster solar radiation tool in ArcGIS, we're actually calculating **solar insolation**, the cumulative energy received by a surface over a given period of time. See [this breakdown from Sinovoltaics](https://sinovoltaics.com/learning-center/basics/solar-radiation-solar-insolation/) for more information.
 
 ### 3. Eliminating non-suitable rooftops
 
